@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/static/js/htmx.min.js"></script>
+        <link rel="stylesheet" href="/static/main.css"/>
+        <title>Rollover</title>
+    </head>
+    <body>
+        <h1>Hello Golang</h1>
+        {{ range .Films }}
+            <p>{{ .Title }} - {{ .Director}}</p>
+        {{ end}}
+    </body>
+</html>
+
