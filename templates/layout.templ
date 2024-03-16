@@ -1,0 +1,22 @@
+package templates
+
+import "github.com/medeirosvictor/rollover/templates/common"
+
+templ Index() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<script src="/static/js/htmx.min.js"></script>
+			<link rel="stylesheet" href="/static/css/output.css"/>
+			<title>Rollover</title>
+		</head>
+		<body>
+			<main>
+				@common.Header()
+				{ children... }
+			</main>
+		</body>
+	</html>
+}
