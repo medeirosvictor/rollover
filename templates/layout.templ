@@ -1,7 +1,5 @@
 package templates
 
-import "github.com/medeirosvictor/rollover/templates/common"
-
 templ Layout() {
 	<!DOCTYPE html>
 	<html lang="en">
@@ -14,8 +12,6 @@ templ Layout() {
 		</head>
 		<body>
 			<main>
-				@common.Header()
-				@common.Typography("p", "welcome!", "text-red-400")
 				{ children... }
 			</main>
 		</body>
