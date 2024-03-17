@@ -2,7 +2,7 @@ package templates
 
 import "github.com/medeirosvictor/rollover/templates/common"
 
-templ Index() {
+templ Layout() {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -15,6 +15,7 @@ templ Index() {
 		<body>
 			<main>
 				@common.Header()
+				@common.Typography("p", "welcome!", "text-red-400")
 				{ children... }
 			</main>
 		</body>

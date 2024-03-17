@@ -1,0 +1,11 @@
+package common
+
+templ Typography(variant string, label string, styles string) {
+	if variant == "h1" {
+		<h1 class={ "", styles }>{ label }</h1>
+	} else if variant == "p" {
+		<p class={ "", styles }>{ label }</p>
+	} else if variant == "h2" {
+		<h2 class={ "", styles }>{ label }</h2>
+	}
+}

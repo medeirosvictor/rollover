@@ -9,7 +9,7 @@ func main() {
 	e := echo.New()
 	e.Static("/static", "static")
 
-	component := templates.Index()
+	component := templates.Home()
 
 	e.GET("/", func(c echo.Context) error {
 		return component.Render(c.Request().Context(), c.Response().Writer)
