@@ -1,0 +1,10 @@
+package common
+
+templ Link(label string, link string, styles string) {
+	<a
+		class={ "rounded-md min-w-[150px] min-h-[50px] font-bold bg-[#aa0e17] text-white p-3 m-1", styles }
+		href={ templ.URL(link) }
+	>
+		{ label }
+	</a>
+}
