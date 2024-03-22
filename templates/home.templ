@@ -4,9 +4,10 @@ import "github.com/medeirosvictor/rollover/templates/common"
 
 templ Home() {
 	@Layout() {
-		@common.Header()
-		@common.Typography("p", "welcome!", "text-red-400")
-		@common.Button("Join a table", "")
-		@common.Button("Create a table", "")
+		<section class="flex flex-col max-w-[720px]">
+			@common.JoinTableInput()
+			@common.Button("Join a table", "")
+			@common.Button("Create a table", "")
+		</section>
 	}
 }

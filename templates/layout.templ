@@ -1,5 +1,7 @@
 package templates
 
+import "github.com/medeirosvictor/rollover/templates/common"
+
 templ Layout() {
 	<!DOCTYPE html>
 	<html lang="en">
@@ -11,7 +13,10 @@ templ Layout() {
 			<title>Rollover</title>
 		</head>
 		<body>
-			<main>
+			<header class="flex justify-center">
+				@common.Header()
+			</header>
+			<main class="flex flex-col justify-center items-center gap-5">
 				{ children... }
 			</main>
 		</body>
