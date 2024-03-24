@@ -1,5 +1,5 @@
 package common
 
-templ Input(label string, styles string) {
-	<input class={ "", styles } value="" placeholder="Enter your table number" type="text"/>
+templ Input(name string, styles string) {
+	<input class={ "", styles } id={ name } name={ name } placeholder="Enter your table number" type="text"/>
 }

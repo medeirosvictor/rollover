@@ -1,7 +1,8 @@
 package templates
 
-templ Table(tableID string, players []string) {
-    <div>
-      Table room where we would roll the dice and track initiative
-    </div>
-  }
+templ Table(tableID string) {
+	<div>
+		<p>{ tableID } </p>
+		Table room where we would roll the dice and track initiative
+	</div>
+}
