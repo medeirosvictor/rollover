@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Box, Button, Input, Text, VStack } from '@chakra-ui/react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -21,33 +22,29 @@ function App() {
   };
 
   return (
-    <div className="p-4">
-      <div className="create-room mt-4 text-center">
-        <button
-          className="bg-green-500 text-white px-4 py-2 rounded-md"
-          onClick={createRoom}
-        >
-          Create Room
-        </button>
-        {roomCode && <p className="mt-2">Your room code is: {roomCode}</p>}
-      </div>
+    <Box p={4}>
+      <VStack spacing={2}>
+        <Box textAlign="center">
+          <Button colorScheme="green" onClick={createRoom}>
+            Create Room
+          </Button>
+          {roomCode && <Text mt={2}>Your room code is: {roomCode}</Text>}
+        </Box>
 
-      <div className="join-room mt-4 text-center">
-        <input
-          type="text"
-          placeholder="Enter room code"
-          value={joinCode}
-          onChange={(e) => setJoinCode(e.target.value)}
-          className="border px-4 py-2 rounded-md"
-        />
-        <button
-          className="bg-purple-500 text-white px-4 py-2 rounded-md ml-2"
-          onClick={joinRoom}
-        >
-          Join Room
-        </button>
-      </div>
-    </div>
+        <Box textAlign="center">
+          <Input
+            type="text"
+            placeholder="Enter room code"
+            value={joinCode}
+            onChange={(e) => setJoinCode(e.target.value)}
+            mb={2}
+          />
+          <Button colorScheme="purple" onClick={joinRoom}>
+            Join Room
+          </Button>
+        </Box>
+      </VStack>
+    </Box>
   );
 }
 
