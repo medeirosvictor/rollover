@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { Box, Button, Input, Text, VStack } from '@chakra-ui/react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
   const [roomCode, setRoomCode] = useState<string | null>(null);
   const [joinCode, setJoinCode] = useState<string>('');
 
