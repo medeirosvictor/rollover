@@ -1,14 +1,10 @@
-import React from 'react';
-
 interface HeaderProps {
     title: string,
 }
 
 const Header = ({title}: HeaderProps) => {
   return (
-    <div>
-      <h1>{title}</h1>
-    </div>
+    <h1 className='header text-center'>{title}</h1>
   );
 };
 
