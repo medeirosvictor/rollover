@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Home from './components/Home.vue'
 import Canvas from './components/Canvas.vue'
-import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
