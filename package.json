@@ -13,6 +13,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "@dice-roller/vue": "^1.2.1",
     "pinia": "^2.2.6",
     "vue": "^3.5.12"
   },
