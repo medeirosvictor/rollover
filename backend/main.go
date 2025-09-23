@@ -16,14 +16,11 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	reader(ws)
+	go websocket.Writer(ws)
+	websocket.Reader(ws)
 }
 
 func setupRoutes() {
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Welcome to the Chat App!")
-    })
-
 	http.HandleFunc("/ws", serveWs)
 }
 
