@@ -1,4 +1,6 @@
-import React from 'react';
+import { useEffect } from 'react';
+import { connect, sendMessage } from '@/api';
+import ChatHistory from '@/components/ChatHistory';
 
 const Home = () => {
     return (
@@ -17,9 +19,12 @@ const Home = () => {
             <button
                 type="button"
                 className="cursor-pointer bg-violet-700 border-3 border-yellow-300 p-2 rounded-md text-white font-bold"
+                onClick={() => sendMessage('Hello from client!')}
             >
                 Create Room
             </button>
+
+            <ChatHistory />
         </div>
     );
 };
