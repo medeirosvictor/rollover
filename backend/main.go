@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/google/uuid"
+
 	"github.com/medeirosvictor/rollover/backend/pkg/websocket"
 )
 
@@ -17,6 +19,7 @@ func serveWs(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
 	}
 
 	client := &websocket.Client{
+		ID:   uuid.New().String(),
 		Conn: conn,
 		Pool: pool,
 	}
@@ -26,6 +29,7 @@ func serveWs(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
 }
 
 func setupRoutes() {
+	fmt.Println("Spinning up pools, channels and serving...")
 	pool := websocket.NewPool()
 	go pool.Start()
 
