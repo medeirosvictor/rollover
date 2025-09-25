@@ -6,6 +6,7 @@ import About from '@/pages/About';
 import Logout from '@/pages/Logout';
 import LoginOrRegister from '@/pages/LoginOrRegister';
 import NotFound from '@/pages/NotFound';
+import Room from './pages/Room';
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 {/* Layout-wrapped routes */}
                 <Route element={<Layout />}>
                     <Route path="/" element={<Home />} />
+                    <Route path="/room/:roomCode" element={<Room />} />
                     <Route path="/about" element={<About />} />
                 </Route>
 

@@ -3,14 +3,16 @@ package websocket
 import "fmt"
 
 type Pool struct {
+	ID string
 	Register   chan *Client
 	Unregister chan *Client
 	Clients    map[*Client]bool
 	Broadcast  chan Message
 }
 
-func NewPool() *Pool {
+func NewPool(roomCode string) *Pool {
 	return &Pool{
+		ID: roomCode,
 		Register:   make(chan *Client),
 		Unregister: make(chan *Client),
 		Clients:    make(map[*Client]bool),

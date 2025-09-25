@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { connect } from '@/api';
 
-type Props = {};
+type Props = {
+    roomCode: string;
+};
 
-function ChatHistory({}: Props) {
+function ChatHistory({ roomCode }: Props) {
     const [messages, setMessages] = useState<string[]>([]);
 
     useEffect(() => {
@@ -11,12 +13,12 @@ function ChatHistory({}: Props) {
             setMessages((prevMessages) => [...prevMessages, msg]);
         };
 
-        connect(handleMessage);
+        connect(handleMessage, roomCode);
     }, []);
 
     return (
         <div>
-            Chat History Component
+            Chat Room: {roomCode}
             <div>
                 {messages.map((msg, index) => (
                     <div key={index}>{msg}</div>
