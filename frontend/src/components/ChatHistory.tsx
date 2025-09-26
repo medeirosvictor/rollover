@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { connect } from '@/api';
+import { Message } from '@/shared/types';
 
 type Props = {
     roomCode: string;
@@ -18,10 +19,11 @@ function ChatHistory({ roomCode }: Props) {
 
     return (
         <div>
-            Chat Room: {roomCode}
-            <div>
+            <div className="border-2 rounded-md w-full flex flex-col bg-white py-2 space-y-2 my-5">
                 {messages.map((msg, index) => (
-                    <div key={index}>{msg}</div>
+                    <div className="border-b-1 p-1" key={index}>
+                        <strong>{msg.clientid}:</strong> {msg.body}
+                    </div>
                 ))}
             </div>
         </div>

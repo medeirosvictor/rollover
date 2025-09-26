@@ -54,7 +54,7 @@ const Home = () => {
             <input
                 type="text"
                 placeholder="ROOM CODE"
-                className="border-1 p-2 rounded-md text-center"
+                className="border-1 p-2 rounded-md text-center bg-white "
                 value={roomCode}
                 onChange={(e) => setRoomCode(e.target.value)}
             />

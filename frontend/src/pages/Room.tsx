@@ -8,20 +8,23 @@ function Room() {
     const [chatInput, setChatInput] = React.useState<string>('');
     return (
         <div>
-            <h2>Welcome to Room {roomCode}</h2>
+            <h2 className="text-2xl text-white text-center">
+                Welcome to Room {roomCode}
+            </h2>
             <ChatHistory roomCode={roomCode ?? ''} />
             <form
                 className="flex space-x-2"
                 onSubmit={(e) => e.preventDefault()}
             >
                 <input
-                    className="border-1 p-2 rounded-md text-center"
+                    className="border-1 p-2 rounded-md w-full border-gray-700 bg-white"
                     type="text"
                     id="chatinput"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                 />
                 <button
+                    className="bg-violet-700 border-3 border-yellow-300 p-2 rounded-md text-white font-bold"
                     type="submit"
                     onClick={() => {
                         sendMessage(chatInput);

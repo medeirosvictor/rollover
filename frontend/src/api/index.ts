@@ -12,7 +12,7 @@ export function connect(cb: (msg: string) => void, roomCode: string): void {
         console.log('Received message: ', msgEvent);
         //parse the msg data as JSON
         const data = JSON.parse(msgEvent.data);
-        cb(data.body);
+        cb(data);
     };
 
     socket.onclose = (e) => {
