@@ -7,24 +7,29 @@ import Logout from '@/pages/Logout';
 import LoginOrRegister from '@/pages/LoginOrRegister';
 import NotFound from '@/pages/NotFound';
 import Room from './pages/Room';
+import Profile from './pages/Profile';
+import { UserProvider } from './context/UserProvider';
 
 function App() {
     return (
         <BrowserRouter>
             {/* <Toast /> */}
-            <Routes>
-                {/* Layout-wrapped routes */}
-                <Route element={<Layout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/room/:roomCode" element={<Room />} />
-                    <Route path="/about" element={<About />} />
-                </Route>
+            <UserProvider>
+                <Routes>
+                    {/* Layout-wrapped routes */}
+                    <Route element={<Layout />}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/room/:roomCode" element={<Room />} />
+                        <Route path="/about" element={<About />} />
+                    </Route>
 
-                {/* Top-level routes */}
-                <Route path="/logout" element={<Logout />} />
-                <Route path="/login" element={<LoginOrRegister />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+                    {/* Top-level routes */}
+                    <Route path="/logout" element={<Logout />} />
+                    <Route path="/login" element={<LoginOrRegister />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </UserProvider>
         </BrowserRouter>
     );
 }

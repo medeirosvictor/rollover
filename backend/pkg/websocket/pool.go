@@ -26,6 +26,7 @@ func (pool *Pool) Start() {
 		case client := <-pool.Register:
 			pool.Clients[client] = true
 			fmt.Println("Size of Connection Pool: ", len(pool.Clients))
+			client.Conn.WriteJSON(Message{Type: 0, Body: "Welcome", ClientId: client.ID})
 			for client := range pool.Clients {
 				fmt.Println("Client ID: ", client.ID)
 				client.Conn.WriteJSON(Message{Type: 1, Body: "New User Joined...", ClientId: client.ID})

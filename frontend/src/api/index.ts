@@ -1,3 +1,9 @@
+import {
+    getUserFromLocalStorage,
+    saveUserToLocalStorage,
+} from '../utils/localStorage';
+import { type Message, type UnregisteredUser } from '../shared/types';
+
 let socket: WebSocket | null = null;
 
 export function connect(cb: (msg: string) => void, roomCode: string): void {
@@ -12,6 +18,18 @@ export function connect(cb: (msg: string) => void, roomCode: string): void {
         console.log('Received message: ', msgEvent);
         //parse the msg data as JSON
         const data = JSON.parse(msgEvent.data);
+
+        const user = getUserFromLocalStorage();
+        if (!user && data.clientid) {
+            // Prepopulate localStorage with clientId from backend
+            const newUser: UnregisteredUser = {
+                clientId: data.clientid,
+                name: '', // or data.name if available
+                colorTheme: '', // or data.colorTheme if available
+                avatarUrl: '', // or data.avatarUrl if available
+            };
+            saveUserToLocalStorage(newUser);
+        }
         cb(data);
     };
 
@@ -20,16 +38,12 @@ export function connect(cb: (msg: string) => void, roomCode: string): void {
     };
 
     socket.onerror = (err) => {
-        console.error(
-            'Socket encountered error: ',
-            err.message,
-            'Closing socket'
-        );
+        console.error('Socket encountered error: ', err, 'Closing socket');
     };
 }
 
-export function sendMessage(msg: string): void {
+export function sendMessage(message: Message): void {
     if (socket && socket.readyState === WebSocket.OPEN) {
-        socket.send(JSON.stringify({ body: msg }));
+        socket.send(JSON.stringify(message));
     }
 }
