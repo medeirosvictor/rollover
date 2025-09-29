@@ -12,6 +12,11 @@ export interface UserContextType {
     setUser: (user: UnregisteredUser) => void;
 }
 
+export interface MessageContextType {
+    message: Message | null;
+    setMessage: (message: Message | null) => void;
+}
+
 export interface UnregisteredUser {
     clientId: string;
     name: string;

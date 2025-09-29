@@ -5,7 +5,7 @@ import {
     saveUserToLocalStorage,
 } from '../utils/localStorage';
 import { type UnregisteredUser } from '../shared/types';
-import { useUserContext } from '../context/useUser';
+import { useUserContext } from '../context/User/useUser';
 // import axios from 'axios';
 
 type Props = {};

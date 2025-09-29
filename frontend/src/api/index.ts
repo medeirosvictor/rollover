@@ -6,31 +6,60 @@ import { type Message, type UnregisteredUser } from '../shared/types';
 
 let socket: WebSocket | null = null;
 
-export function connect(cb: (msg: string) => void, roomCode: string): void {
+export function connect(
+    onMessage: (msg: Message) => void,
+    roomCode: string,
+    onHistory?: (history: Message[]) => void
+): void {
     socket = new WebSocket(`ws://localhost:8080/room/${roomCode}`);
     console.log('Connecting to WebSocket...');
+
     socket.onopen = () => {
         console.log('Connected to WebSocket');
-        cb('Connected to WebSocket');
+        const user = getUserFromLocalStorage();
+        onMessage({
+            type: -1,
+            body: 'Connected to WebSocket',
+            clientid: user?.clientId ?? '',
+            roomCode,
+            timestamp: Date.now(),
+            senderName: user?.name ?? '',
+        });
     };
 
     socket.onmessage = (msgEvent) => {
-        console.log('Received message: ', msgEvent);
-        //parse the msg data as JSON
+        console.log('Received message FROM OUTSIDE?: ', msgEvent);
         const data = JSON.parse(msgEvent.data);
 
-        const user = getUserFromLocalStorage();
-        if (!user && data.clientid) {
-            // Prepopulate localStorage with clientId from backend
-            const newUser: UnregisteredUser = {
-                clientId: data.clientid,
-                name: '', // or data.name if available
-                colorTheme: '', // or data.colorTheme if available
-                avatarUrl: '', // or data.avatarUrl if available
-            };
-            saveUserToLocalStorage(newUser);
+        switch (data.type) {
+            case 69:
+                if (Array.isArray(data.history)) {
+                    if (onHistory) {
+                        onHistory(data.history);
+                    }
+                    return;
+                }
+                break;
+            // Message coming from someone else
+            case 1:
+                onMessage(data);
+                break;
+            default: {
+                const user = getUserFromLocalStorage();
+                if (!user && data.clientid) {
+                    // Prepopulate localStorage with clientId from backend
+                    const newUser: UnregisteredUser = {
+                        clientId: data.clientid,
+                        name: '', // or data.name if available
+                        colorTheme: '', // or data.colorTheme if available
+                        avatarUrl: '', // or data.avatarUrl if available
+                    };
+                    saveUserToLocalStorage(newUser);
+                }
+                onMessage(data);
+                break;
+            }
         }
-        cb(data);
     };
 
     socket.onclose = (e) => {
@@ -44,6 +73,7 @@ export function connect(cb: (msg: string) => void, roomCode: string): void {
 
 export function sendMessage(message: Message): void {
     if (socket && socket.readyState === WebSocket.OPEN) {
+        console.log('sending message: ', message);
         socket.send(JSON.stringify(message));
     }
 }

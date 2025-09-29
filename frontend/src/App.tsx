@@ -8,27 +8,30 @@ import LoginOrRegister from '@/pages/LoginOrRegister';
 import NotFound from '@/pages/NotFound';
 import Room from './pages/Room';
 import Profile from './pages/Profile';
-import { UserProvider } from './context/UserProvider';
+import { UserProvider } from './context/User/UserProvider';
+import { MessageProvider } from './context/Message/MessageProvider';
 
 function App() {
     return (
         <BrowserRouter>
             {/* <Toast /> */}
             <UserProvider>
-                <Routes>
-                    {/* Layout-wrapped routes */}
-                    <Route element={<Layout />}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/profile" element={<Profile />} />
-                        <Route path="/room/:roomCode" element={<Room />} />
-                        <Route path="/about" element={<About />} />
-                    </Route>
+                <MessageProvider>
+                    <Routes>
+                        {/* Layout-wrapped routes */}
+                        <Route element={<Layout />}>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/room/:roomCode" element={<Room />} />
+                            <Route path="/about" element={<About />} />
+                        </Route>
 
-                    {/* Top-level routes */}
-                    <Route path="/logout" element={<Logout />} />
-                    <Route path="/login" element={<LoginOrRegister />} />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
+                        {/* Top-level routes */}
+                        <Route path="/logout" element={<Logout />} />
+                        <Route path="/login" element={<LoginOrRegister />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </MessageProvider>
             </UserProvider>
         </BrowserRouter>
     );

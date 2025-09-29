@@ -3,8 +3,8 @@ import { type UnregisteredUser } from '@/shared/types';
 import {
     getUserFromLocalStorage,
     saveUserToLocalStorage,
-} from '../utils/localStorage';
-import { UserContext } from './userContext';
+} from '../../utils/localStorage';
+import { UserContext } from './UserContext';
 
 export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUserState] = useState<UnregisteredUser | null>(null);

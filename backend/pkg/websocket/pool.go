@@ -3,11 +3,17 @@ package websocket
 import "fmt"
 
 type Pool struct {
-	ID string
+	ID         string
 	Register   chan *Client
 	Unregister chan *Client
 	Clients    map[*Client]bool
 	Broadcast  chan Message
+	History    []Message
+}
+
+type HistorySnapshot struct {
+	Type    int       `json:"type"`
+	History []Message `json:"history"`
 }
 
 func NewPool(roomCode string) *Pool {
@@ -27,6 +33,13 @@ func (pool *Pool) Start() {
 			pool.Clients[client] = true
 			fmt.Println("Size of Connection Pool: ", len(pool.Clients))
 			client.Conn.WriteJSON(Message{Type: 0, Body: "Welcome", ClientId: client.ID})
+			fmt.Println("Welcome: ", client.ID)
+			fmt.Println("Current Snapshot: ", pool.History)
+			client.Conn.WriteJSON(HistorySnapshot{
+				Type:    69,
+				History: pool.History,
+			})
+			fmt.Println("Client Joined: ", client.ID)
 			for client := range pool.Clients {
 				fmt.Println("Client ID: ", client.ID)
 				client.Conn.WriteJSON(Message{Type: 1, Body: "New User Joined...", ClientId: client.ID})
@@ -41,6 +54,7 @@ func (pool *Pool) Start() {
 			}
 
 		case message := <-pool.Broadcast:
+			pool.History = append(pool.History, message)
 			fmt.Println("Sending message to all clients in Pool")
 			for client := range pool.Clients {
 				if err := client.Conn.WriteJSON(message); err != nil {
